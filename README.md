@@ -1,5 +1,10 @@
 # CAPSTONE PROJECT
 
+## Prototype
+
+![prototype](https://pr.to/FPSFIO/)
+
+
 ## BUILDING A  Blogging Platform:
 
 ** This projects aims to build a platform for people to post blogs and accept comments from other peoples **
