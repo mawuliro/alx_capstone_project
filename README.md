@@ -2,7 +2,7 @@
 
 ## Prototype
 
-![prototype](https://pr.to/FPSFIO/)
+![prototype](images/alx-cap-proto.png)
 
 
 ## BUILDING A  Blogging Platform:
