@@ -5,5 +5,5 @@ import os
 
 class Config:
     SECRET_KEY = os.urandom(24).hex()
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:roland@localhost/blogpostdb'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:roland@localhost/blogpostdb'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
