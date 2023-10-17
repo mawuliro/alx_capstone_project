@@ -6,6 +6,9 @@ from flask import Flask
 from config import Config
 
 from app.extensions import db
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
+from flask_mail import Mail
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -19,7 +22,7 @@ def create_app(config_class=Config):
     app.register_blueprint(main_bp)
 
     from app.posts import bp as posts_bp
-    app.register_blueprint(posts_bp, url_prefix='/posts')
+    app.register_blueprint(posts_bp)
 
     @app.route('/test/')
     def test_app():
