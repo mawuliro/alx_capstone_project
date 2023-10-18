@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+{% block content %}
+    <article class="media content-section" style="background-color: rgb(70, 103, 109);">
+        <img class="rounded-circle article-img"
+             src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <div class="date">
+                    <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}" style="color: #fff;">{{ post.author.username }}</a>
+                    <small class="" style="color: #e7ebef;">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                    <small>
+                        <a style="color: #fff;" style="pointer-events: none;"><i class="far fa-eye" aria-hidden="true"></i>{{ post.views }} Views</a>
+                        <a style="color: #fff;" style="pointer-events: none;"><i class="fas fa-thumbs-up" aria-hidden="true"></i>{{ post.likes|length }} Likes</a>
+                    </small>
+                </div>
+                <div>
+                    {% if post.author == current_user %}
+                        <div>
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+                            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">
+                                Delete
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <h2 class="article-title" style="color: #fff;">{{ post.title }}</h2>
+            <p class="article-content" style="color: #fff;">{{ post.content }}</p>
+        </div>
+    </article>
+    <br>
+    {% if current_user.is_authenticated %}
+        <form method="get" action="/like-post/{{ post.id }}">
+            <button type="submit" name="like-post" class="btn bttn">
+                <i class="fas fa-thumbs-up" style="font-size: 26px;"></i>
+                <span style="margin-left: 4px; font-size: 13px;">Like post</span>
+            </button>
+        </form>
+    {% endif %}
+    <br>
+    <div class="comments-area collapse" id="comments-{{ post.id }}">
+        <h4>{{post.comments|length}} Comments</h4>
+        <div class="card-text">{{post.text}}</div>
+        {% for comment in post.comments %}
+            <div class="comment-list">
+                <div class="single-comment justify-content-between d-flex">
+                    <div class="user justify-content-between d-flex">
+                        <div class="thumb">
+                            <img class="rounded-circle article-img" src="{{ image_file }}">
+                            
+                        </div>
+            
+                        <div class="desc">
+                            <h5><a>{{comment.name}}</a></h5>
+                            <p class="date">{{comment.date_posted.strftime('%Y-%m-%d %H:%M:%S')}}</p>
+                            <p class="comment">
+                                {{comment.text}}
+                            </p>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    
+    </div>
+    <p class="card-text">
+        {% if post.comments|length > 0 %}
+            <a data-toggle="collapse" href="#comments-{{ post.id }}" role="button">
+                <h4>{{post.comments|length}} Comments</h4>
+            </a>
+        {% else %}
+            <small class="text-muted"><h5>No Comment</h5></small>
+        {% endif %}
+    </p>
+
+    {% if current_user.is_authenticated %}
+        <div class="comment-form">
+            <h4>Leave a Comment</h4>
+            <form method="POST" action="/create-comment/{{post.id}}">
+                <div class="form-group form-inline">
+                <div class="form-group col-lg-6 col-md-6 name">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'" required>
+                </div>
+                <div class="form-group col-lg-6 col-md-6 email">
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+                </div>	
+                </div>
+                <div class="form-group">
+                    <textarea name="text" class="form-control mb-10" rows="5" name="text" placeholder="Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-outline-info">Post Comment</button>	
+            </form>
+        </div>
+    {% endif %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
