@@ -1,10 +1,7 @@
-{% extends "base.html" %}
-
+{% extends 'layout.html' %}
 {% block content %}
-
-{% from "includes/formhelpers.html" import render_field %}
-
-
-<h1>THE PAGE YOU ARE REQUESTING IS NOT FOUND</h1>
-
-{% endblock %}
+    <div class="content-section" style="background-color: rgb(70, 103, 109);">
+        <h1 style="color: #fff;">Oops. Page Not Found (404)</h1>
+        <p style="color: #fff;">That page does not exist. Please try another location.</p>
+    </div>
+{% endblock content %}
