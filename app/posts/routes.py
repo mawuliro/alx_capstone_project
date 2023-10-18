@@ -3,8 +3,7 @@ from flask_login import current_user, login_required
 from app.extensions import db
 from app.models import Post, Comments, Likes
 from app.posts.forms import PostForm
-
-posts = Blueprint('posts', __name__)
+from app.posts import posts
 
 
 @posts.route("/post/new", methods=['GET', 'POST'])

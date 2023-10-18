@@ -1,12 +1,12 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request
+from flask_bcrypt import bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
-from buzz_bite import db, bcrypt
-from buzz_bite.models import User, Post, Contact
-from buzz_bite.users.forms import (RegistrationForm, LoginForm, ContactForm,
+from app.extensions import db
+from app.models import User, Post, Contact
+from app.users.forms import (RegistrationForm, LoginForm, ContactForm,
                                    UpdateAccountForm, RequestResetForm, ResetPasswordForm)
-from buzz_bite.users.utils import save_picture, send_email
-
-users = Blueprint('users', __name__)
+from app.users.utils import save_picture, send_email
+from app.users import users
 
 
 @users.route("/register", methods=['GET', 'POST'])

@@ -18,15 +18,14 @@ def create_app(config_class=Config):
     db.init_app(app)
 
     # Register blueprints here
-    from app.main import bp as main_bp
+    from app.main import main as main_bp
     app.register_blueprint(main_bp)
 
-    from app.posts import bp as posts_bp
+    from app.posts import posts as posts_bp
     app.register_blueprint(posts_bp)
 
-    @app.route('/test/')
-    def test_app():
-        return '<h1>TEST APPLICATION</h1>'
+    from app.users import users as users_bp
+    app.register_blueprint(users_bp)
 
 
     return app
