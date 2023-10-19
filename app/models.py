@@ -1,3 +1,6 @@
+"""application database
+   import of modules
+"""
 from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
@@ -11,6 +14,8 @@ def load_user(user_id):
 
 
 class User(db.Model, UserMixin):
+    """User informations"""
+
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(20), unique=True, nullable=False)
     lastname = db.Column(db.String(20), unique=True, nullable=False)
@@ -40,6 +45,8 @@ class User(db.Model, UserMixin):
 
 
 class Post(db.Model):
+    """information about the posts of the user
+    """
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -54,6 +61,8 @@ class Post(db.Model):
 
 
 class Contact(db.Model):
+    """contact the owner of the web
+    """
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), nullable=False)
@@ -64,6 +73,8 @@ class Contact(db.Model):
 
 
 class Comments(db.Model):
+    """comment posts
+    """
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(200), nullable=False)
@@ -79,6 +90,8 @@ class Comments(db.Model):
 
 
 class Likes(db.Model):
+    """like posts
+    """
     __tablename__='likes'
     id = db.Column(db.Integer, primary_key=True)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)

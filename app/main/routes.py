@@ -2,7 +2,6 @@ from flask import render_template, request
 from app.models import Post
 from app.main import main
 
-
 @main.route("/")
 @main.route("/base")
 def base():

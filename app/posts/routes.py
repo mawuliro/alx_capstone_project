@@ -5,7 +5,6 @@ from app.models import Post, Comments, Likes
 from app.posts.forms import PostForm
 from app.posts import posts
 
-
 @posts.route("/post/new", methods=['GET', 'POST'])
 @login_required
 def new_post():

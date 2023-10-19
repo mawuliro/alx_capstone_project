@@ -17,27 +17,26 @@ mail = Mail()
 
 
 def create_app(config_class=Config):
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='templates')
+    app.url_map.strict_slashes = False
     app.config.from_object(config_class)
     
-    # Initialize Flask extensions here
+    # Initialization of Flask extensions here
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
     app.app_context().push()
 
-    # Register blueprints here
+    # Registration of blueprints here
+
     from app.main import main as main_bp
     app.register_blueprint(main_bp)
-
     from app.posts import posts as posts_bp
     app.register_blueprint(posts_bp)
-
     from app.users import users as users_bp
     app.register_blueprint(users_bp)
-
     from app.errors import errors as errors_bp
     app.register_blueprint(errors_bp)
-
+    
     return app
