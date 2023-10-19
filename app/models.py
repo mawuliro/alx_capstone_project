@@ -2,11 +2,10 @@ from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
 from app.extensions import db
-from flask_login import login_manager
 from flask_login import UserMixin
+from flask import current_app as app
 
-
-@login_manager.user_loader
+@app.login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 

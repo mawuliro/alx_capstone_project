@@ -12,3 +12,5 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('EMAIL_USER') or 'mawuliro2001@gmail.com'
     MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
+    SQLALCHEMY_ECHO = False
+    SQLALCHEMY_RECORD_QUERIES = True
