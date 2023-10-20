@@ -14,7 +14,7 @@ def new_post():
         db.session.add(post)
         db.session.commit()
         flash('Your Post has been Created Successfully!', 'success')
-        return redirect(url_for('main.home'))
+        return redirect(url_for('main.base'))
     return render_template('create_post.html', title='New Post',
                            form=form, legend='New Post')
 
@@ -58,7 +58,7 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     flash('Your Post has been Deleted!', 'success')
-    return redirect(url_for('main.home'))
+    return redirect(url_for('main.base'))
 
 
 @posts.route("/create-comment/<post_id>", methods=['POST'])

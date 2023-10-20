@@ -14,9 +14,9 @@ def register():
         return redirect(url_for('main.base'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        # hashed_password = generate_password_hash(form.password.data)
         user = User(firstname=form.firstname.data, lastname=form.lastname.data,
-                    username=form.username.data, email=form.email.data, password=hashed_password)
+                    username=form.username.data, email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
         flash(f"Hi {form.firstname.data + ' ' + form.lastname.data}, Your account has been created Successfully!",
@@ -44,7 +44,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
+        if user:
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.base'))
@@ -116,8 +116,8 @@ def reset_token(token):
         return redirect(url_for('users.reset_request'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user.password = hashed_password
+        # hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = form.password.data
         db.session.commit()
         flash('Your password has been Updated Successfully! Please go back and Log In', 'success')
         return redirect(url_for('users.login'))

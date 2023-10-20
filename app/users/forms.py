@@ -15,9 +15,9 @@ class RegistrationForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=25)])
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8, max=250)])
     confirm_password = PasswordField('Confirm Password',
-                                     validators=[DataRequired(), EqualTo('password')])
+                                     validators=[DataRequired(), EqualTo('password'), Length(min=8, max=250)])
     remember = BooleanField('I agree to the Terms and Conditions.', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
 
